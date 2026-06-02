@@ -25,7 +25,7 @@ Jogo da cobrinha medieval com ranking global, login com Google e doações via P
 
 ## 👨‍💻 Autor
 
-Feito com 💙 por [KauaDaudt](https://github.com/KauaDaudt)
+Feito por [KauaDaudt](https://github.com/KauaDaudt)
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kau%C3%A3-daudt-848548345/)
 [![Portfólio](https://img.shields.io/badge/Portf%C3%B3lio-4d9de0?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-alpha-sable-8i7dr5jncu.vercel.app/)
