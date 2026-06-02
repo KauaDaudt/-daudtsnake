@@ -323,4 +323,10 @@ export class Game implements AfterViewInit, OnDestroy {
   goSetup() {
   this.router.navigate(['/setup']);
 }
+setDir(x: number, y: number) {
+  if (this.gameState !== 'playing') return;
+  if (!(x === -this.dir.x && y === -this.dir.y)) {
+    this.nextDir = { x, y };
+  }
+}
 }
