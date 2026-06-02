@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { CommonModule } from '@angular/common';
 
-declare const google: any;
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -27,15 +25,22 @@ export class Login implements AfterViewInit {
       return;
     }
 
-    google.accounts.id.initialize({
-      client_id: '521099599659-qa84qa48gnnd4jldtkufmn7872a6qpvv.apps.googleusercontent.com',
-      callback: (response: any) => this.handleCredential(response)
-    });
+    const initGoogle = () => {
+      if (typeof (window as any).google === 'undefined') {
+        setTimeout(initGoogle, 500);
+        return;
+      }
+      (window as any).google.accounts.id.initialize({
+        client_id: '521099599659-qa84qa48gnnd4jldtkufmn7872a6qpvv.apps.googleusercontent.com',
+        callback: (response: any) => this.handleCredential(response)
+      });
+      (window as any).google.accounts.id.renderButton(
+        document.getElementById('google-btn'),
+        { theme: 'filled_black', size: 'large', width: 280 }
+      );
+    };
 
-    google.accounts.id.renderButton(
-      document.getElementById('google-btn'),
-      { theme: 'filled_black', size: 'large', width: 280 }
-    );
+    initGoogle();
   }
 
   handleCredential(response: any) {

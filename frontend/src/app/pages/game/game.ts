@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, HostListener, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
@@ -23,6 +23,7 @@ export class Game implements AfterViewInit, OnDestroy {
   user: any = null;
   score = 0;
   bestScore = 0;
+  foodEaten = 0;
   gameState: 'idle' | 'playing' | 'dead' = 'idle';
 
   private snake: Point[] = [];
@@ -65,6 +66,7 @@ export class Game implements AfterViewInit, OnDestroy {
 
   startGame() {
     this.score = 0;
+    this.foodEaten = 0;
     this.snake = [
       { x: 12, y: 10 }, { x: 11, y: 10 }, { x: 10, y: 10 }
     ];
@@ -73,7 +75,7 @@ export class Game implements AfterViewInit, OnDestroy {
     this.spawnFood();
     this.gameState = 'playing';
     clearInterval(this.loop);
-    this.loop = setInterval(() => this.tick(), 130);
+    this.loop = setInterval(() => this.tick(), 200);
   }
 
   private tick() {
@@ -102,7 +104,13 @@ export class Game implements AfterViewInit, OnDestroy {
 
     if (head.x === this.food.x && head.y === this.food.y) {
       this.score += 10;
+      this.foodEaten++;
       this.spawnFood();
+      if (this.foodEaten % 5 === 0) {
+        clearInterval(this.loop);
+        const newSpeed = Math.max(80, 200 - (this.foodEaten / 5) * 20);
+        this.loop = setInterval(() => this.tick(), newSpeed);
+      }
     } else {
       this.snake.pop();
     }
@@ -166,18 +174,9 @@ export class Game implements AfterViewInit, OnDestroy {
     }
   }
 
-  private getCanvas() {
-    return this.canvasRef.nativeElement;
-  }
-
-  private getCtx() {
-    return this.getCanvas().getContext('2d')!;
-  }
-
-  private drawIdle() {
-    const ctx = this.getCtx();
-    this.drawBackground(ctx);
-  }
+  private getCanvas() { return this.canvasRef.nativeElement; }
+  private getCtx() { return this.getCanvas().getContext('2d')!; }
+  private drawIdle() { this.drawBackground(this.getCtx()); }
 
   private draw() {
     const ctx = this.getCtx();
@@ -185,11 +184,7 @@ export class Game implements AfterViewInit, OnDestroy {
 
     ctx.fillStyle = '#e74c3c';
     ctx.beginPath();
-    ctx.arc(
-      this.food.x * CELL + CELL / 2,
-      this.food.y * CELL + CELL / 2,
-      CELL / 2 - 3, 0, Math.PI * 2
-    );
+    ctx.arc(this.food.x * CELL + CELL / 2, this.food.y * CELL + CELL / 2, CELL / 2 - 3, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = '#27ae60';
     ctx.fillRect(this.food.x * CELL + CELL / 2, this.food.y * CELL + 2, 3, 6);
@@ -258,10 +253,8 @@ export class Game implements AfterViewInit, OnDestroy {
           ctx.strokeStyle = '#e74c3c';
           ctx.lineWidth = 1.5;
           ctx.beginPath();
-          ctx.moveTo(cx, cy + 4);
-          ctx.lineTo(cx - 3, cy + 9);
-          ctx.moveTo(cx, cy + 4);
-          ctx.lineTo(cx + 3, cy + 9);
+          ctx.moveTo(cx, cy + 4); ctx.lineTo(cx - 3, cy + 9);
+          ctx.moveTo(cx, cy + 4); ctx.lineTo(cx + 3, cy + 9);
           ctx.stroke();
         }
       }
