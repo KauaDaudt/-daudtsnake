@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
 
 namespace backend.Controllers;
 
@@ -6,14 +8,21 @@ namespace backend.Controllers;
 [Route("api/[controller]")]
 public class PaymentController : ControllerBase
 {
+    private readonly IConfiguration _config;
+
+    public PaymentController(IConfiguration config)
+    {
+        _config = config;
+    }
+
     [HttpPost("pix")]
     public async Task<IActionResult> GeneratePix([FromBody] PixRequestDto dto)
     {
-        var mpAccessToken = Environment.GetEnvironmentVariable("MP_ACCESS_TOKEN") 
-                            ?? "seu_token_aqui";
+        var accessToken = _config["MercadoPago:AccessToken"];
 
         using var http = new HttpClient();
-        http.DefaultRequestHeaders.Add("Authorization", $"Bearer {mpAccessToken}");
+        http.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+        http.DefaultRequestHeaders.Add("X-Idempotency-Key", Guid.NewGuid().ToString());
 
         var payload = new
         {
@@ -23,17 +32,21 @@ public class PaymentController : ControllerBase
             payer = new
             {
                 email = dto.PayerEmail,
-                first_name = "Doador"
+                first_name = "Doador",
+                last_name = "DaudtSnake"
             }
         };
 
-        var response = await http.PostAsJsonAsync(
-            "https://api.mercadopago.com/v1/payments", payload);
+        var json = JsonSerializer.Serialize(payload);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await http.PostAsync("https://api.mercadopago.com/v1/payments", content);
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
-            return BadRequest("Erro ao gerar Pix");
+            return BadRequest(new { error = "Erro ao gerar Pix", details = responseBody });
 
-        var result = await response.Content.ReadFromJsonAsync<dynamic>();
+        var result = JsonSerializer.Deserialize<object>(responseBody);
         return Ok(result);
     }
 }

@@ -1,5 +1,7 @@
 backend/appsettings.json
+backend/appsettings.Development.json
 backend/obj/
 backend/bin/
 frontend/node_modules/
 frontend/.angular/
+frontend/dist/
