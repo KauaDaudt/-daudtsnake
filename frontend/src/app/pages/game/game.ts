@@ -106,10 +106,10 @@ export class Game implements AfterViewInit, OnDestroy {
       this.score += 10;
       this.foodEaten++;
       this.spawnFood();
-      if (this.foodEaten % 5 === 0) {
-        clearInterval(this.loop);
-        const newSpeed = Math.max(80, 200 - (this.foodEaten / 5) * 20);
-        this.loop = setInterval(() => this.tick(), newSpeed);
+      if (this.foodEaten % 20 === 0) {
+      clearInterval(this.loop);
+      const newSpeed = Math.max(100, 200 - (this.foodEaten / 20) * 15);
+      this.loop = setInterval(() => this.tick(), newSpeed);
       }
     } else {
       this.snake.pop();
