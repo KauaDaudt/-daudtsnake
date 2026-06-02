@@ -1,0 +1,49 @@
+<div class="game-page"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)">
+
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">🐍 DaudtSnake</span>
+    </div>
+    <div class="header-center">
+      <span class="score-label">Pontos</span>
+      <span class="score">{{ score }}</span>
+      <span class="score-label">Melhor</span>
+      <span class="score">{{ bestScore }}</span>
+    </div>
+    <div class="header-right">
+      <button class="nav-btn" (click)="goRanking()">Ranking</button>
+      <button class="nav-btn" (click)="goDonate()">Doe 💙</button>
+      <button class="nav-btn" (click)="goSetup()">✏️ Perfil</button>
+      <button class="nav-btn logout" (click)="logout()">Sair</button>
+    </div>
+  </header>
+
+  <div class="arena">
+    <canvas #canvas
+      [width]="600"
+      [height]="480">
+    </canvas>
+
+    <div class="overlay" *ngIf="gameState === 'idle'">
+      <h2>Bem-vindo, {{ user?.name }}!</h2>
+      <p>Use as setas do teclado ou arraste na tela</p>
+      <button class="btn-start" (click)="startGame()">▶ Começar</button>
+    </div>
+
+    <div class="overlay dead" *ngIf="gameState === 'dead'">
+      <h2>Game Over!</h2>
+      <p>Você fez <strong>{{ score }}</strong> pontos</p>
+      <button class="btn-start" (click)="startGame()">↺ Jogar de novo</button>
+    </div>
+  </div>
+
+  <div class="user-info">
+    <span class="avatar">
+      {{ user?.avatar === 'duck' ? '🦆' : user?.avatar === 'lion' ? '🦁' : '🐻' }}
+    </span>
+    <span class="username">{{ user?.name }}</span>
+  </div>
+
+</div>

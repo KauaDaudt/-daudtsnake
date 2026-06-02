@@ -1,0 +1,83 @@
+<div class="donate-page">
+  <div class="donate-card">
+    <div class="top-bar">
+      <button class="back-btn" (click)="goBack()">← Voltar</button>
+      <h1>💙 Doe pra mim</h1>
+      <span></span>
+    </div>
+
+    <div class="profile-section">
+      <div class="avatar-big">🐍</div>
+      <div class="profile-info">
+        <h2>Kauã Daudt</h2>
+        <p>Estudante de ADS na FIAP, apaixonado por desenvolvimento.</p>
+      </div>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/kau%C3%A3-daudt-848548345/" target="_blank" class="social-btn linkedin">
+        💼 Conecte comigo no LinkedIn
+      </a>
+      <a href="https://github.com/KauaDaudt" target="_blank" class="social-btn github">
+        🐙 GitHub
+      </a>
+      <a href="https://portfolio-alpha-sable-8i7dr5jncu.vercel.app/" target="_blank" class="social-btn portfolio">
+        🌐 Meu Portfólio
+      </a>
+      <a href="https://wa.me/5522997725541" target="_blank" class="social-btn whatsapp">
+        📱 Me chama no WhatsApp
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="pix-section" *ngIf="!success">
+      <h3>Quer me pagar um café? ☕</h3>
+      <p class="pix-subtitle">Qualquer valor já ajuda muito!</p>
+
+      <div class="amounts">
+        <button
+          *ngFor="let a of amounts"
+          class="amount-btn"
+          [class.selected]="selectedAmount === a"
+          (click)="selectAmount(a)">
+          R$ {{ a }}
+        </button>
+      </div>
+
+      <input
+        type="number"
+        class="input"
+        placeholder="Ou digita outro valor (R$)"
+        [(ngModel)]="customAmount"
+        (focus)="selectedAmount = 0"
+        min="1" />
+
+      <input
+        type="email"
+        class="input"
+        placeholder="Seu e-mail"
+        [(ngModel)]="payerEmail" />
+
+      <p class="error" *ngIf="error">{{ error }}</p>
+
+      <button class="btn-pix" (click)="generatePix()" [disabled]="loading">
+        {{ loading ? 'Gerando...' : '⚡ Gerar QR Code Pix' }}
+      </button>
+    </div>
+
+    <div class="qr-section" *ngIf="success">
+      <h3>QR Code gerado! 🎉</h3>
+      <p>Escaneie com o app do seu banco</p>
+
+      <img *ngIf="qrCode" [src]="'data:image/png;base64,' + qrCode" alt="QR Code Pix" class="qr-img" />
+
+      <div class="pix-copy" *ngIf="pixCode">
+        <span class="pix-code">{{ pixCode | slice:0:40 }}...</span>
+        <button class="copy-btn" (click)="copyPix()">Copiar</button>
+      </div>
+
+      <button class="back-pix-btn" (click)="success = false">← Gerar outro</button>
+    </div>
+  </div>
+</div>

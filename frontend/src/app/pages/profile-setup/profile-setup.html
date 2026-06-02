@@ -1,0 +1,53 @@
+<div class="setup-page">
+  <div class="setup-card">
+    <h1>{{ isEditing ? 'Editar perfil' : 'Cria seu perfil' }}</h1>
+    <p class="subtitle">{{ isEditing ? 'Muda o que quiser!' : 'Como você quer ser conhecido na arena?' }}</p>
+
+    <div class="field">
+      <label>Seu nome</label>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        placeholder="Ex: KauaDaudt"
+        maxlength="20"
+        class="input" />
+    </div>
+
+    <div class="field">
+      <label>Escolhe seu avatar</label>
+      <div class="options">
+        <div
+          *ngFor="let a of avatars"
+          class="option"
+          [class.selected]="selectedAvatar === a.id"
+          (click)="selectedAvatar = a.id">
+          <span class="emoji">{{ a.emoji }}</span>
+          <span class="label">{{ a.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Escolhe a skin da sua cobra</label>
+      <div class="options">
+        <div
+          *ngFor="let s of skins"
+          class="option"
+          [class.selected]="selectedSkin === s.id"
+          (click)="selectedSkin = s.id">
+          <span class="emoji">{{ s.emoji }}</span>
+          <span class="label">{{ s.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <div style="display:flex; gap:12px;">
+      <button class="btn-secondary" *ngIf="isEditing" (click)="router.navigate(['/game'])">Cancelar</button>
+      <button class="btn" (click)="confirm()" [disabled]="loading" style="flex:1">
+        {{ loading ? 'Salvando...' : isEditing ? 'Salvar alterações' : 'Entrar na arena' }}
+      </button>
+    </div>
+  </div>
+</div>

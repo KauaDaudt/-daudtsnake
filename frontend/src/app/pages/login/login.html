@@ -1,0 +1,24 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo">
+      <span class="logo-icon">🐍</span>
+      <h1>Daudt<span class="accent">Snake</span></h1>
+      <p class="tagline">Suba no ranking. Domine a arena.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div *ngIf="!loading; else loadingTpl">
+      <div id="google-btn"></div>
+    </div>
+
+    <ng-template #loadingTpl>
+      <div class="loading">
+        <div class="spinner"></div>
+        <span>Entrando...</span>
+      </div>
+    </ng-template>
+
+    <p class="footer-text">feito por <a href="https://github.com/KauaDaudt" target="_blank">KauaDaudt</a></p>
+  </div>
+</div>

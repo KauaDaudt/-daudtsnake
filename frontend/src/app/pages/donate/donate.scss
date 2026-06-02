@@ -1,0 +1,259 @@
+.donate-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1117;
+  padding: 24px;
+}
+
+.donate-card {
+  background: #161b22;
+  border: 1px solid #1e3a5f;
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid #1e3a5f;
+  border-radius: 6px;
+  color: #8b949e;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #4d9de0;
+    color: #4d9de0;
+  }
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .avatar-big { font-size: 48px; }
+
+  .profile-info {
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+    p {
+      color: #8b949e;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+  }
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.85; }
+
+  &.linkedin {
+    background: #0a66c2;
+    color: #fff;
+  }
+  &.github {
+    background: #24292e;
+    color: #fff;
+    border: 1px solid #30363d;
+  }
+  &.portfolio {
+    background: #1e3a5f;
+    color: #4d9de0;
+    border: 1px solid #4d9de0;
+  }
+  &.whatsapp {
+    background: #25d366;
+    color: #fff;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: #1e3a5f;
+}
+
+.pix-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+
+  .pix-subtitle {
+    color: #8b949e;
+    font-size: 13px;
+    margin-top: -8px;
+  }
+}
+
+.amounts {
+  display: flex;
+  gap: 10px;
+}
+
+.amount-btn {
+  flex: 1;
+  background: #0d1117;
+  border: 2px solid #1e3a5f;
+  border-radius: 8px;
+  color: #e6edf3;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover { border-color: #4d9de0; }
+  &.selected {
+    border-color: #4d9de0;
+    background: #0c2444;
+    color: #4d9de0;
+  }
+}
+
+.input {
+  background: #0d1117;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #e6edf3;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus { border-color: #4d9de0; }
+  &::placeholder { color: #484f58; }
+}
+
+.error {
+  color: #f85149;
+  font-size: 13px;
+}
+
+.btn-pix {
+  background: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover:not(:disabled) { background: #00a381; }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+
+  p { color: #8b949e; font-size: 14px; }
+
+  .qr-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    border: 2px solid #1e3a5f;
+  }
+}
+
+.pix-copy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0d1117;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 100%;
+
+  .pix-code {
+    flex: 1;
+    color: #8b949e;
+    font-size: 12px;
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    background: #1e3a5f;
+    color: #4d9de0;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover { background: #4d9de0; color: #fff; }
+  }
+}
+
+.back-pix-btn {
+  background: transparent;
+  border: 1px solid #1e3a5f;
+  border-radius: 6px;
+  color: #8b949e;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover { border-color: #4d9de0; color: #4d9de0; }
+}
