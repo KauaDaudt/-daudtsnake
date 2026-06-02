@@ -33,7 +33,9 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
             "http://localhost:4200",
-            "https://wonderful-blessing-production-7d02.up.railway.app"
+            "https://wonderful-blessing-production-7d02.up.railway.app",
+            "https://wonderful-blessing-production-b796.up.railway.app",
+            "https://daudtsnake.up.railway.app"
         )
         .AllowAnyHeader()
         .AllowAnyMethod();
