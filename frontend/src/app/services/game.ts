@@ -7,7 +7,7 @@ import { AuthService } from './auth';
   providedIn: 'root'
 })
 export class GameService {
-  private apiUrl = 'http://localhost:5229/api';
+  private apiUrl = 'https://daudtsnake-production.up.railway.app/api';
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 

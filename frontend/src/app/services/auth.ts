@@ -16,7 +16,7 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5229/api';
+  private apiUrl = 'https://daudtsnake-production.up.railway.app/api';
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
