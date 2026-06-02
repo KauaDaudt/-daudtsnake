@@ -31,12 +31,14 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(
+            "http://localhost:4200",
+            "https://wonderful-blessing-production-7d02.up.railway.app"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
-
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
