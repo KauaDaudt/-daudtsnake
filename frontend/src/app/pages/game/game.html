@@ -45,15 +45,19 @@
     </span>
     <span class="username">{{ user?.name }}</span>
   </div>
+
   <div class="mobile-controls" *ngIf="gameState === 'playing'">
-  <div class="ctrl-row">
-    <button class="ctrl-btn" (touchstart)="setDir(0,-1)">▲</button>
+    <div class="ctrl-row">
+      <button class="ctrl-btn" (touchstart)="onCtrlBtn($event, 0, -1)">▲</button>
+    </div>
+    <div class="ctrl-row middle">
+      <button class="ctrl-btn" (touchstart)="onCtrlBtn($event, -1, 0)">◀</button>
+      <div class="ctrl-empty"></div>
+      <button class="ctrl-btn" (touchstart)="onCtrlBtn($event, 1, 0)">▶</button>
+    </div>
+    <div class="ctrl-row">
+      <button class="ctrl-btn" (touchstart)="onCtrlBtn($event, 0, 1)">▼</button>
+    </div>
   </div>
-  <div class="ctrl-row">
-    <button class="ctrl-btn" (touchstart)="setDir(-1,0)">◀</button>
-    <button class="ctrl-btn" (touchstart)="setDir(0,1)">▼</button>
-    <button class="ctrl-btn" (touchstart)="setDir(1,0)">▶</button>
-  </div>
-</div>
 
 </div>
