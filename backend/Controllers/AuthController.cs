@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using backend.Data;
 using backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
 
@@ -45,10 +46,25 @@ public class AuthController : ControllerBase
         return Ok(new { token, user });
     }
 
+    [HttpGet("me")]
+    [Authorize]
+    public async Task<IActionResult> GetMe()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) return Unauthorized();
+        var userId = int.Parse(userIdClaim);
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null) return NotFound();
+        return Ok(user);
+    }
+
     [HttpPut("profile")]
+    [Authorize]
     public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDto dto)
     {
-        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null) return Unauthorized();
+        var userId = int.Parse(userIdClaim);
         var user = await _db.Users.FindAsync(userId);
         if (user == null) return NotFound();
 

@@ -41,6 +41,19 @@ export class Game implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
   setTimeout(() => {
     this.user = this.authService.getUser();
+    if (!this.user) {
+      const token = this.authService.getToken();
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          this.user = {
+            name: payload.unique_name || payload.name || 'Jogador',
+            avatar: 'duck',
+            snakeSkin: 'green'
+          };
+        } catch(e) {}
+      }
+    }
     this.authService.user$.subscribe(u => { if (u) this.user = u; });
   });
   this.drawIdle();

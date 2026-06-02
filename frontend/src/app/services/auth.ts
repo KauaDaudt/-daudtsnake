@@ -41,6 +41,15 @@ export class AuthService {
     );
   }
 
+  fetchMe(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/auth/me`, { headers: this.authHeaders() }).pipe(
+      tap((user: any) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+      })
+    );
+  }
+
   updateProfile(name: string, avatar: string, snakeSkin: string): Observable<any> {
     return this.http.put(
       `${this.apiUrl}/auth/profile`,
